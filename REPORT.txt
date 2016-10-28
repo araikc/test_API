@@ -1,0 +1,40 @@
+Last run results:
+
+test_1register_user (__main__.TestServerFunctionality) ... ok
+test_2register_user_incorrect_header (__main__.TestServerFunctionality) ... ok
+test_3retrieve_user_id (__main__.TestServerFunctionality) ... ok
+test_4retrieve_user_data (__main__.TestServerFunctionality) ... ok
+test_5update_user_data (__main__.TestServerFunctionality) ... ok
+test_6grand_role (__main__.TestServerFunctionality) ... FAIL
+test_7revoke_role (__main__.TestServerFunctionality) ... FAIL
+test_8create_ticket (__main__.TestServerFunctionality) ... FAIL
+test_9get_ticket (__main__.TestServerFunctionality) ... FAIL
+
+1. Unable to grand role with Customer and Admin users. Always get 403 status code. 
+	Reproduce: 
+		Please invoke "python test_api.py TestServerFunctionality.test_3retrieve_user_id TestServerFunctionality.test_6grand_role"
+		from terminal to reproduce the issue.
+		Please edit 'test_api.py' file's USERID variable to change the user to "admin" user.
+        Test Name: test_6grand_role
+2. Unable to revoke role with Customer and Admin users. Always get 403 status code.
+	Reproduce: 
+		Please invoke "python test_api.py TestServerFunctionality.test_3retrieve_user_id TestServerFunctionality.test_6grand_role"
+		from terminal to reproduce the issue.
+		Please edit 'test_api.py' file's USERID variable to change the user to "admin" user.
+        Test Name: test_6grand_role
+3. Unable to create ticket. Always get following error: "The request content was malformed:\nObject is missing required member '`type`'".
+	Note: 'type' field exist in post request.
+	Reproduce:
+		Please invoke "python test_api.py TestServerFunctionality.test_3retrieve_user_id TestServerFunctionality.test_7revoke_role"
+		from terminal to reproduce the issue.
+		Please edit 'test_api.py' file's USERID variable to change the user to "admin" user.
+	Test Name: test_7revoke_role 
+4. 'remember' field is mandatory in "/acl/auth/{authType}/{authAccountId}" service but not mentioned in "API calls-updated.md" document.
+	Corresponding test is passing since I'm using 'remember' field in request.
+	Not sure from where commint the issue: API design issue or document issue.
+	Test Name: test_3retrieve_user_id 
+5. By default, 'accountId', 'handle', 'avatarId' fields are missing in response of account data service "/core/users/{userId}" but mentioned in "API calls-updated.md" document.
+	Corresponding test is passing since I'm using correct fields.
+	Not sure from where commint the issue: API design issue or document issue.
+	Test Name: test_4retrieve_user_data 
+
